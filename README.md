@@ -1,73 +1,69 @@
-# React + TypeScript + Vite
+# Real-Time Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Dashboard Preview](https://via.placeholder.com/1200x600/050505/ffffff?text=Real-Time+Analytics+Dashboard)
 
-Currently, two official plugins are available:
+A high-performance, real-time data visualization dashboard designed to handle large-scale, high-frequency data streams. Built with **React**, **Vite**, **TypeScript**, and **Zustand**, this application demonstrates advanced frontend architecture and performance optimization techniques modeled after enterprise trading terminals and monitoring platforms (like Bloomberg or Datadog).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Key Features
 
-## React Compiler
+- **Real-Time Data Streaming:** Simulates high-frequency data ingestion (200ms tick latency) pushing dynamic system metrics and event logs.
+- **Ultra-Fast Visualizations:** Integrates `uPlot`—a blazing fast `<canvas>` charting library—to render thousands of data points without the overhead of SVG-based React reconciliation.
+- **Virtualized Data Tables:** Employs `@tanstack/react-virtual` to seamlessly render logs streams containing 10,000+ entries, minimizing DOM nodes to maintain 60FPS scrolling.
+- **Modular Dashboard Layout:** Uses `react-grid-layout` to provide a customizable, drag-and-drop widget grid.
+- **Enterprise UI Design:** Features a custom, sophisticated dark-mode UI with sharp radii, deep `#050505` backgrounds, glassmorphism layers, and subtle terminal-grid textures.
+- **Performance Optimized State:** Utilizes `Zustand` to manage a high-throughput data buffer, preventing costly global re-renders.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- **Framework:** React 18, Vite, TypeScript
+- **State Management:** Zustand
+- **Data Visualization:** uPlot (`uplot-react`)
+- **Virtualization:** @tanstack/react-virtual
+- **Layouting:** react-grid-layout
+- **Styling:** Vanilla CSS variables and utility classes
+- **Icons:** lucide-react
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📂 Architecture Highlights
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### **1. Zero-Rebel State Updates (Zustand)**
+Standard React Context triggers re-renders across all consumers when a single property updates. By using `Zustand`, widgets subscribe *only* to the specific slices of state they need (e.g., the LineChart only rerenders when `metrics.cpu` updates).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### **2. Canvas over DOM (uPlot)**
+Traditional charting libraries like Recharts render each data point as an SVG node. In high-frequency environments, this causes the DOM to balloon, halving framerates. `uPlot` draws directly to an HTML5 canvas, skipping React's virtual DOM entirely for the chart data, supporting incredible scale.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### **3. DOM Virtualization (TanStack)**
+The event log simulates an ongoing stream that quickly reaches 10,000 items. Rendering 10k rows of complex HTML would freeze the browser. DOM virtualization ensures only the ~20 rows currently visible in the viewport actually exist in the HTML document.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/rta-dashboard.git
+   cd rta-dashboard
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open `http://localhost:5173` to view the dashboard.
+
+## 📈 Future Enhancements
+- **WebSocket Backend:** Replace the local `StreamProvider` mock using a true `Socket.io` Node server.
+- **Persistent Layouts:** Save the `react-grid-layout` JSON configuration to `localStorage` or a database.
+- **Custom Tooltips:** Build overlaid React portals synced with the `uPlot` cursor to show rich data tooltips.
+
+---
+*Built to demonstrate Elite Frontend Engineering performance standards.*
