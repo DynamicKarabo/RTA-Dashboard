@@ -7,6 +7,7 @@ import { LineChartWidget } from './widgets/LineChartWidget';
 import { BarChartWidget } from './widgets/BarChartWidget';
 import { VirtualTableWidget } from './widgets/VirtualTableWidget';
 import { MetricCardWidget } from './widgets/MetricCardWidget';
+import { CandlestickChartWidget } from './widgets/CandlestickChartWidget';
 
 const Grid: any = GridLayout;
 
@@ -14,7 +15,8 @@ const Grid: any = GridLayout;
 const initialLayout: any[] = [
   { i: 'server-cpu', x: 0, y: 0, w: 6, h: 8, minW: 3, minH: 5 },
   { i: 'server-mem', x: 6, y: 0, w: 6, h: 8, minW: 3, minH: 5 },
-  { i: 'network-traffic', x: 0, y: 8, w: 12, h: 10, minW: 4, minH: 6 },
+  { i: 'market-ohlc', x: 0, y: 8, w: 6, h: 10, minW: 4, minH: 6 },
+  { i: 'network-traffic', x: 6, y: 8, w: 6, h: 10, minW: 4, minH: 6 },
   { i: 'logs-table', x: 0, y: 18, w: 8, h: 12, minW: 6, minH: 8 },
   { i: 'active-users', x: 8, y: 18, w: 4, h: 12, minW: 3, minH: 6 },
 ];
@@ -64,6 +66,11 @@ export const DashboardGrid: React.FC = () => {
           <div key="server-mem">
             <WidgetCard title="Memory Usage" subtitle="Allocated vs Free">
               <LineChartWidget dataKey="memory" color="var(--success)" />
+            </WidgetCard>
+          </div>
+          <div key="market-ohlc">
+            <WidgetCard title="Market Performance" subtitle="Real-time OHLC data">
+              <CandlestickChartWidget />
             </WidgetCard>
           </div>
           <div key="network-traffic">

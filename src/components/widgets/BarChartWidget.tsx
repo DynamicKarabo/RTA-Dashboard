@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import UplotReact from 'uplot-react';
 import uPlot from 'uplot';
 import 'uplot/dist/uPlot.min.css';
 import { useStore } from '../../store/useStore';
+import { ResponsiveUplot } from './ResponsiveUplot';
 
 export const BarChartWidget: React.FC = () => {
   const network = useStore(state => state.metrics.network);
@@ -17,17 +17,17 @@ export const BarChartWidget: React.FC = () => {
 
   const options: uPlot.Options = useMemo(() => {
     return {
-      width: 800,
-      height: 250,
+      width: 0,
+      height: 0,
       scales: { x: { time: true } },
       axes: [
         {
           stroke: 'var(--text-muted)',
-          grid: { stroke: 'var(--border-color)', width: 1 },
+          grid: { stroke: 'rgba(255, 255, 255, 0.05)', width: 1 },
         },
         {
           stroke: 'var(--text-muted)',
-          grid: { stroke: 'var(--border-color)', width: 1 },
+          grid: { stroke: 'rgba(255, 255, 255, 0.05)', width: 1 },
         }
       ],
       series: [
@@ -35,13 +35,13 @@ export const BarChartWidget: React.FC = () => {
         {
           label: 'Ingress',
           stroke: 'var(--success)',
-          fill: 'rgba(16, 185, 129, 0.4)',
+          fill: 'rgba(16, 185, 129, 0.2)',
           width: 2,
         },
         {
           label: 'Egress',
           stroke: 'var(--danger)',
-          fill: 'rgba(239, 68, 68, 0.4)',
+          fill: 'rgba(239, 68, 68, 0.2)',
           width: 2,
         }
       ],
@@ -50,8 +50,8 @@ export const BarChartWidget: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ width: '100%', height: '100%', overflow: 'hidden', padding: '0 16px 16px' }}>
-      <UplotReact options={options} data={data} target={document.createElement('div')} />
+    <div style={{ width: '100%', height: '100%', padding: '0 8px 16px' }}>
+      <ResponsiveUplot options={options} data={data} />
     </div>
   );
 };
