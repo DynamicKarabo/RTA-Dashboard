@@ -26,7 +26,7 @@ export const VirtualTableWidget: React.FC = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
-      <div style={{ paddingBottom: '12px', flexShrink: 0 }}>
+      <div style={{ padding: '12px 16px', flexShrink: 0, borderBottom: '1px solid rgba(255, 255, 255, 0.02)' }}>
         <input 
           type="text" 
           placeholder="Filter logs by level, service, or message..." 
@@ -35,13 +35,16 @@ export const VirtualTableWidget: React.FC = () => {
           style={{
             width: '100%',
             padding: '8px 12px',
-            borderRadius: 'var(--radius-sm)',
+            borderRadius: 'var(--radius-md)',
             border: '1px solid var(--border-color)',
             background: 'var(--bg-primary)',
             color: 'var(--text-primary)',
             outline: 'none',
-            fontSize: '0.9rem'
+            fontSize: '0.85rem',
+            transition: 'border-color var(--transition-fast)'
           }}
+          onFocus={(e) => e.target.style.borderColor = 'var(--accent-color)'}
+          onBlur={(e) => e.target.style.borderColor = 'var(--border-color)'}
         />
       </div>
       <div 

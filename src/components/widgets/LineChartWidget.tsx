@@ -53,7 +53,7 @@ export const LineChartWidget: React.FC<LineChartWidgetProps> = ({ dataKey, color
 
   // Small wrapper to force 100% width and height using ResizeObserver in a real app
   return (
-    <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+    <div style={{ width: '100%', height: '100%', overflow: 'hidden', padding: '0 16px 16px' }}>
       <UplotReact options={options} data={data} target={document.createElement('div')} />
     </div>
   );

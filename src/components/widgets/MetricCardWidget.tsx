@@ -9,27 +9,35 @@ export const MetricCardWidget: React.FC = () => {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      alignItems: 'center',
+      padding: '24px',
       height: '100%',
-      gap: '8px'
+      gap: '12px'
     }}>
       <div style={{
-        fontSize: '3.5rem',
-        fontWeight: 800,
+        fontSize: '4rem',
+        fontWeight: 400,
+        fontFamily: 'SF Mono, monospace', // Terminal feel
         color: 'var(--text-primary)',
         lineHeight: 1,
-        textShadow: 'var(--shadow-glow)'
+        letterSpacing: '-2px'
       }}>
         {activeUsers.toLocaleString()}
       </div>
       <div style={{
-        color: 'var(--success)',
-        fontWeight: 600,
+        color: 'var(--text-primary)',
+        fontSize: '0.85rem',
+        fontWeight: 500,
         display: 'flex',
         alignItems: 'center',
-        gap: '4px'
+        gap: '6px'
       }}>
-        <span>▲ 12% from last hour</span>
+        <span style={{ 
+          background: 'rgba(16, 185, 129, 0.1)', 
+          color: 'var(--success)', 
+          padding: '2px 6px', 
+          borderRadius: '4px' 
+        }}>↑ +12.4%</span>
+        <span style={{ color: 'var(--text-muted)' }}>vs previous timeframe</span>
       </div>
     </div>
   );

@@ -50,7 +50,7 @@ export const BarChartWidget: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+    <div style={{ width: '100%', height: '100%', overflow: 'hidden', padding: '0 16px 16px' }}>
       <UplotReact options={options} data={data} target={document.createElement('div')} />
     </div>
   );
